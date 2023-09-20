@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+
 
 
 import streamlit as st
@@ -17,13 +17,12 @@ from functools import reduce
 pd.options.mode.chained_assignment = None
 
 
-# In[3]:
+
 
 
 #pip show streamlit
 
 
-# In[121]:
 
 
 def fix_decimal3(cols):
