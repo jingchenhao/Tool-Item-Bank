@@ -31,7 +31,6 @@ def fix_decimal3(cols):
     return cols
 
 
-# In[122]:
 
 
 import random
@@ -100,7 +99,7 @@ random.shuffle(item_level)
 ks_category = [random.randint(1, 10) for _ in range(5000)]
 
 
-# In[123]:
+
 
 
 #'ItemId', 'Subject', 'Grade', 'DOK', 'Language', 'Field_Test_Year', 'Reporting_Category','Knowledge_and_Skill', 'difficulty','item_level'
@@ -109,7 +108,7 @@ ks_category = [random.randint(1, 10) for _ in range(5000)]
 # science ['1.Biology','2.Physics','3.Earth Science','4.Chemistry']
 
 
-# In[124]:
+
 
 
 data = {
@@ -128,7 +127,7 @@ data = {
 df = pd.DataFrame(data)
 
 
-# In[125]:
+
 
 
 df['Language'] = 'English'
@@ -138,20 +137,10 @@ df['Knowledge_and_Skill'] = df['Reporting_Category'] + '.'+df['Knowledge_and_Ski
 df['Subject_Grade'] = df['Subject'] + '_G' + df['Grade'].astype(str)
 
 
-# In[126]:
-
-
-df.head(2)
-
-
-# In[ ]:
-
 
 st.set_page_config(layout="wide")
 st.title("A Quick Look of the Item Pool Data")
 
-
-# In[ ]:
 
 
 # ---side bar (individual item)----
@@ -192,7 +181,7 @@ df_sub = df_sub.reset_index(drop=True)
 st.sidebar.write('Pool Sample Size N:', df_sub.shape[0])
 
 
-# In[ ]:
+
 
 
 #------ show a subset of the data----------------------------------
@@ -200,9 +189,6 @@ st.markdown("## Data Structure")
 cols = ['ItemId','Language','Subject','Grade','Field_Test_Year','DOK','Reporting_Category','Knowledge_and_Skill','difficulty','item_level']
 st_ms = st.multiselect("Columns", df_sub.columns.tolist(), default=cols)
 st.write(df_sub[st_ms].head(10))
-
-
-# In[ ]:
 
 
 st.title("Item Difficulty")
@@ -218,17 +204,13 @@ item_dif_table['count'] = item_dif_table['count'].astype(int)
 st.markdown("## Descriptive Statistics of Item Difficulty")
 st.write(item_dif_table)
 
-
-# In[ ]:
-
-
 #---------------draw item difficulty distribtuion plot----------------------------------------
 dif_fig = px.box(df_sub, x="Subject_Grade", y="difficulty",width=1000,height=600,color="Subject",template='plotly_white')
 st.markdown("## Item Difficulty Boxplot")
 st.plotly_chart(dif_fig, use_container_width=True)
 
 
-# In[26]:
+
 
 
 st.title("Item DOK and RALD")
@@ -246,7 +228,6 @@ fig2 = px.pie(ald_table, values='N', names='item_level')
 col2.plotly_chart(fig2, use_container_width=True)
 
 
-# In[ ]:
 
 
 #-----------------------------------------------------
@@ -260,7 +241,6 @@ st.plotly_chart(stack_bar_rc, use_container_width=True)
 #stack_bar_rc.show()
 
 
-# In[ ]:
 
 
 #-----------------------------------------------------
@@ -273,18 +253,6 @@ stack_bar_ks = px.bar(ks, x='Knowledge_and_Skill', y=['Counts'], color='item_lev
 st.plotly_chart(stack_bar_ks, use_container_width=True)
 
 
-# In[128]:
-
-
-# df_sub  = df.copy()
-# ks = df_sub.groupby(['Knowledge_and_Skill', 'item_level']).size().reset_index()
-# ks['percentage'] = df_sub.groupby(['Knowledge_and_Skill', 'item_level']).size().groupby(level=0).apply(lambda x: 100 * x / float(x.sum())).values
-# ks.columns = ['Knowledge_and_Skill', 'item_level','Counts', 'Percentage']
-# stack_bar_ks = px.bar(ks, x='Knowledge_and_Skill', y=['Counts'], color='item_level', text=ks['Percentage'].apply(lambda x: '{0:1.1f}%'.format(x)),width=1000,height=600,template='none')#plotly_white
-# stack_bar_ks.show()
-
-
-# In[ ]:
 
 
 
