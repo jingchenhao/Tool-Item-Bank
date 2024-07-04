@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+
+
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -5,16 +11,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 from networkx.drawing import nx_pydot
+
 from functools import reduce
 pd.options.mode.chained_assignment = None
 
 
-###-------- simulate item pool --------------------------
+
+#-----------simulate item pool-----------------------------------------------------
 
 def fix_decimal3(cols):
     for i in range(cols.shape[1]):
         cols.iloc[:,i] = cols.iloc[:,i].apply(lambda x:format(x,".3f"))
     return cols
+
+
 
 
 import random
@@ -52,7 +62,7 @@ for subject in subjects:
         RC = random.choice(['1.Biology', '2.Physics', '3.Earth Science', '4.Chemistry'])  
     RC_list.append(RC)
 
-#---------------------------------------------
+# set min and max grades
 min_grade = 1
 max_grade = 6
 
@@ -62,7 +72,7 @@ grade = [random.randint(min_grade, max_grade) for _ in range(5000)]
 field_test_year = ["2015"] * 1500 + ["2016"] * 1500 + ["2017"] * 2000
 random.shuffle(field_test_year)
 
-#---------------------------------------------------------
+
 # Set the parameters for the normal distribution
 mean = 0
 std_deviation = 1
@@ -70,14 +80,16 @@ num_samples = 5000
 
 # Generate the normal distribution data
 normal_data = np.random.normal(mean, std_deviation, num_samples)
-#----------------------------------------------------------
+
+# Simualte DOK levels
 dok = ["1"] * 1200 + ["2"] * 1800 + ["3"] * 1600 + ["4"] * 400
 random.shuffle(dok)
 
-#-----------------------
+# Simulate item achievement levels
 item_level = ["1"] * 1000 + ["2"] * 1800 + ["3"] * 1600 + ["4"] * 600
 random.shuffle(item_level)
-#----------------------------------------------------------
+
+# Simulate knowledge and skill catgories 
 ks_category = [random.randint(1, 10) for _ in range(5000)]
 
 
@@ -92,7 +104,7 @@ ks_category = [random.randint(1, 10) for _ in range(5000)]
 
 
 
-# combine simulated variables
+
 data = {
     'ItemId': item_ids,
     'Subject': subjects,
@@ -110,15 +122,13 @@ df = pd.DataFrame(data)
 
 
 
-
-
 df['Language'] = 'English'
 df.loc[df.Subject.str.contains('Spanish'),'Language'] = 'Spanish'
 df['ItemId'] = 'A'+df['ItemId'].astype(str)
 df['Knowledge_and_Skill'] = df['Reporting_Category'] + '.'+df['Knowledge_and_Skill'].astype(str)
 df['Subject_Grade'] = df['Subject'] + '_G' + df['Grade'].astype(str)
 
-
+#-----------------------------------------------------------------------------------
 
 st.set_page_config(layout="wide")
 st.title("A Quick Look of the Item Pool Data")
@@ -136,8 +146,9 @@ else:
 
 df_sub = df_sub.reset_index(drop=True)
 st.sidebar.write('Pool Sample Size N:', df_sub.shape[0])
-
 #-------------------------------
+
+
 st.sidebar.markdown("# Testing Language")
 #option = '2022'
 option_language = st.sidebar.selectbox("Select a testing language",('English','Spanish','ALL'))
@@ -211,7 +222,7 @@ col2.plotly_chart(fig2, use_container_width=True)
 
 
 
-#-----------------show reporting cateory distribution------------------------------------
+#-----------------------------------------------------
 st.markdown("## Reporting Categories")
 rc = df_sub.groupby(['Reporting_Category', 'item_level']).size().reset_index()
 rc['percentage'] = df_sub.groupby(['Reporting_Category', 'item_level']).size().groupby(level=0).apply(lambda x: 100 * x / float(x.sum())).values
@@ -224,7 +235,7 @@ st.plotly_chart(stack_bar_rc, use_container_width=True)
 
 
 
-#-----------------show knowledge and skill standard distribution------------------------------------
+#-----------------------------------------------------
 st.markdown("## Knowledge and Skills")
 ks = df_sub.groupby(['Knowledge_and_Skill', 'item_level']).size().reset_index()
 ks['percentage'] = df_sub.groupby(['Knowledge_and_Skill', 'item_level']).size().groupby(level=0).apply(lambda x: 100 * x / float(x.sum())).values
