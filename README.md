@@ -11,11 +11,14 @@ This tool provides a detailed overview of various metrics, including:
   ![Screenshot 2024-07-03 at 8 48 07 PM](https://github.com/jingchenhao/Tool-Item-Bank/assets/71888017/450b131b-980c-48ba-bbb2-6dc9a2369f8f)
 
 * Percentage of Items at Each Achievement Level: This helps in understanding how many items meet the various achievement levels set by the state, ensuring accurate measurement of student performance levels.
-  ![Screenshot 2024-07-03 at 8 50 30 PM](https://github.com/jingchenhao/Tool-Item-Bank/assets/71888017/158bc692-40d4-472b-8da5-4b5d3a6eb35e)
+  ![Screenshot 2024-07-03 at 8 52 30 PM](https://github.com/jingchenhao/Tool-Item-Bank/assets/71888017/8690076a-d6d4-445e-9299-e7e900c08932)
+
 
 * Number of Items for Each Standard: By tracking the number of items aligned with each educational standard, we ensure comprehensive coverage of all required standards.
   
 * Percentage of Items at Each Achievement Level within Standards: This helps pinpoint specific areas within standards that may need more items or adjustments.
+![Screenshot 2024-07-03 at 8 53 33 PM](https://github.com/jingchenhao/Tool-Item-Bank/assets/71888017/aeb420b7-4235-4978-8a29-9b1cf5b16447)
+
 
 
 ## Getting Started
