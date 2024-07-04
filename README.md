@@ -12,7 +12,7 @@ This tool provides a detailed overview of various metrics, including:
 
 
 ## Getting Started
-* item bank 
+
 * In terimal, run python -m streamlit run item_bank_app.py
 
 
